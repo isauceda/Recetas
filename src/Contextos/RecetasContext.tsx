@@ -36,14 +36,19 @@ export const RecetasProvider = ({ children }: { children: React.ReactNode }) => 
         setSiguienteId(siguienteId + 1);
     };
 
-    const eliminarReceta = (id: number) => {
-        setRecetas(recetas.filter(receta => receta.id !== id));
+const eliminarReceta = (id: number) => {
+    const nuevasRecetas = recetas.filter(receta => receta.id !== id);
 
-        if (recetaSeleccionada?.id === id) {
-            setRecetaSeleccionada(undefined);
-        }
-    };
+    setRecetas(nuevasRecetas);
 
+    if (nuevasRecetas.length === 0) {
+        setSiguienteId(1);
+    }
+
+    if (recetaSeleccionada?.id === id) {
+        setRecetaSeleccionada(undefined);
+    }
+};
     const buscarReceta = (id: number) => {
         return recetas.find(receta => receta.id === id);
     };

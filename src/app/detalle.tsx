@@ -18,7 +18,7 @@ export default function Detalle() {
             contentContainerStyle={styles.contenido}
         >
 
-            <Text style={styles.titulo}>🍽️ Detalle de Receta</Text>
+            <Text style={styles.titulo}>Detalle de la Receta</Text>
 
             {recetaSeleccionada ? (
 
@@ -33,7 +33,7 @@ export default function Detalle() {
                     </Text>
 
                     <Text style={styles.subtitulo}>
-                        🥗 Ingredientes:
+                        Ingredientes:
                     </Text>
 
                     {recetaSeleccionada.ingredientes.map((ingrediente, index) => (
@@ -45,7 +45,7 @@ export default function Detalle() {
                     <View style={styles.separador} />
 
                     <Text style={styles.fecha}>
-                        📅 Fecha de creación: {recetaSeleccionada.fecha}
+                        Fecha de ingreso de Receta: {recetaSeleccionada.fecha}
                     </Text>
 
                 </View>
