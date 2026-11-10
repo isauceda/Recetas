@@ -1,18 +1,44 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+import { Stack } from 'expo-router';
+import { RecetasProvider } from '../Contextos/RecetasContext';
 
-SplashScreen.preventAutoHideAsync();
+export default function RootLayout() {
+    return (
+        <RecetasProvider>
+            <Stack
+                screenOptions={{
+                    headerStyle: {
+                        backgroundColor: '#FADDE1',
+                    },
+                    headerTintColor: '#81545B',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    },
+                    contentStyle: {
+                        backgroundColor: '#FFF8F5',
+                    },
+                }}
+            >
+                <Stack.Screen
+                    name="index"
+                    options={{ title: 'Mis Recetas' }}
+                />
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
-  );
+                <Stack.Screen
+                    name="agregar"
+                    options={{ title: 'Agregar Receta' }}
+                />
+
+                <Stack.Screen
+                    name="recetas"
+                    options={{ title: 'Lista de Recetas' }}
+                />
+
+                <Stack.Screen
+                    name="detalle"
+                    options={{ title: 'Buscar Receta' }}
+                />
+            </Stack>
+        </RecetasProvider>
+    );
 }

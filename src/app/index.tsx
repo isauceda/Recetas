@@ -1,98 +1,144 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import { router } from 'expo-router';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
+export default function Inicio() {
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+    <ScrollView contentContainerStyle={styles.contenedor}>
+      <View style={styles.logo}>
+        <Text style={styles.nombre}>Recetas de Ingrid</Text>
+        <Text style={styles.subtitulo}>El mundo del Sabor</Text>
+      </View>
 
-export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+      <View style={styles.tarjeta}>
+        <Text style={styles.bienvenida}>
+          ¡Hola!
+        </Text>
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+        <Text style={styles.descripcion}>
+          Guarda tu menu favorito.
+        </Text>
+      </View>
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
+      <View style={styles.opciones}>
+        <TouchableOpacity
+          style={styles.botonAgregar}
+          onPress={() => router.push('/agregar')}
+        >
+        <Text style={styles.textoBoton}>Agregar Receta</Text>
+        </TouchableOpacity>
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+        <TouchableOpacity
+          style={styles.botonLista}
+          onPress={() => router.push('/recetas')}
+        >
+        <Text style={styles.textoBoton}>Lista de Recetas</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.botonBuscar}
+          onPress={() => router.push('/buscar')}
+        >
+        <Text style={styles.textoBoton}>Buscar Detalles de la Receta</Text>
+        </TouchableOpacity>
+      </View>
+
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
-  },
-  heroSection: {
+  contenedor: {
+    flexGrow: 1,
+    backgroundColor: '#FFF8F5',
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
+    padding: 25,
   },
-  title: {
+  logo: {
+    alignItems: 'center',
+    marginBottom: 30,
+  },
+  icono: {
+    fontSize: 65,
+  },
+  nombre: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#81545B',
+  },
+  subtitulo: {
+    fontSize: 15,
+    color: '#B98289',
+    marginTop: 5,
+  },
+  tarjeta: {
+    backgroundColor: '#FADDE1',
+    width: '100%',
+    padding: 22,
+    borderRadius: 22,
+    marginBottom: 25,
+    alignItems: 'center',
+  },
+  bienvenida: {
+    fontSize: 23,
+    fontWeight: 'bold',
+    color: '#754B50',
+    marginBottom: 12,
+  },
+  descripcion: {
+    fontSize: 15,
+    color: '#755D60',
     textAlign: 'center',
+    lineHeight: 23,
   },
-  code: {
-    textTransform: 'uppercase',
+  opciones: {
+    width: '100%',
+    gap: 15,
   },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+  botonAgregar: {
+    backgroundColor: '#F4C6CC',
+    padding: 18,
+    borderRadius: 18,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  botonLista: {
+    backgroundColor: '#DDEEDB',
+    padding: 18,
+    borderRadius: 18,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  botonBuscar: {
+    backgroundColor: '#E4E1F7',
+    padding: 18,
+    borderRadius: 18,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  iconoBoton: {
+    fontSize: 22,
+    marginRight: 12,
+  },
+  textoBoton: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#59464A',
+  },
+  pie: {
+    marginTop: 35,
+    color: '#B98289',
+    fontSize: 13,
   },
 });
+
